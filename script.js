@@ -1,26 +1,43 @@
-let compNum
-let compChoice
-let playerScore = 0
-let playerChoice
-let win
+let compNum;
+let compChoice;
+let playerScore = 0;
+let playerChoice;
+let compScore = 0;
 
-let play = game();
-console.log(play);
+game();
+
+if (playerScore > compScore) {
+    console.log(`Final score of ${playerScore}! You Win!`)
+}
+else if (playerScore < compScore) {
+    console.log(`Final score of ${playerScore}! You Lose!`)
+}
+else {
+    console.log(`Final score of ${playerScore}! You Draw!`)
+}
+
 
 function game() {
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         let choice = prompt("Choose: rock, paper or scissor");
-        let playerChoice = choice.toLowerCase();
+        playerChoice = choice.toLowerCase();
         randomNum();
-        playRound();
         computerPlay();
-        console.log(i);
-        if (win === "You win!") {
+        let result = playRound();
+        console.log(result);
+        if (result === "You win!") {
             playerScore = playerScore + 1;
+        }
+        else if (result === "You lose!") {
+            compScore = compScore + 1;
+        }
+        else if (result === "Invalid") {
+            i = i - 1
         }
     }
 
 }
+
 function randomNum() {
     compNum = Math.floor(Math.random() * 3) + 1
 }
@@ -59,6 +76,7 @@ function playRound() {
     else if (playerChoice === "scissor" && compChoice === "paper") {
         return "You win!";
     }
+    else {
+        return "Invalid";
+    }
 }
-
-
