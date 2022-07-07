@@ -1,31 +1,43 @@
 let compNum
 let compChoice
-let choice = prompt("Choose: rock, paper or scissor")
-let playerChoice = choice.toLowerCase();
+let playerScore = 0
+let playerChoice
+let win
 
-console.log(playerChoice);
+let play = game();
+console.log(play);
 
+function game() {
+    for (let i = 0; i < 6; i++) {
+        let choice = prompt("Choose: rock, paper or scissor");
+        let playerChoice = choice.toLowerCase();
+        randomNum();
+        playRound();
+        computerPlay();
+        console.log(i);
+        if (win === "You win!") {
+            playerScore = playerScore + 1;
+        }
+    }
+
+}
 function randomNum() {
     compNum = Math.floor(Math.random() * 3) + 1
-    console.log(compNum)
 }
 
 function computerPlay() {
     if (compNum === 1) {
         compChoice = "rock";
-        console.log(compChoice)
     }
     else if (compNum === 2) {
         compChoice = "paper";
-        console.log(compChoice)
     }
     else {
         compChoice = "scissor";
-        console.log(compChoice)
     }
 }
 
-function winner() {
+function playRound() {
     if (playerChoice === compChoice) {
         return "Its a draw!";
     }
@@ -49,8 +61,4 @@ function winner() {
     }
 }
 
-randomNum();
-computerPlay();
-let win = winner();
 
-console.log(win);
