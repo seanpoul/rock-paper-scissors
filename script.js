@@ -3,11 +3,11 @@ let playerChoice;
 let compChoice;
 let playerScore = 0;
 let compScore = 0;
-
 const body = document.body;
 const rockBtn = document.createElement('button');
 const paperBtn = document.createElement('button');
 const scissorBtn = document.createElement('button');
+const div = document.createElement('div');
 
 rockBtn.textContent = "Rock";
 paperBtn.textContent = "Paper";
@@ -29,16 +29,6 @@ function updateScissor() {
     playerChoice = "scissor"
 }
 
-if (playerScore > compScore) {
-    console.log(`Final score of ${playerScore}! You Win!`)
-}
-else if (playerScore < compScore) {
-    console.log(`Final score of ${playerScore}! You Lose!`)
-}
-else {
-    console.log(`Final score of ${playerScore}! You Draw!`)
-}
-
 function randomNum() {
     compNum = Math.floor(Math.random() * 3) + 1
 }
@@ -55,50 +45,89 @@ function computerPlay() {
     }
 }
 
-let result = function playRound() {
-    let choice = playerChoice;
+function playRound() {
     randomNum();
     computerPlay();
-    if (rockBtn.textContent === compChoice) {
-        return "Its a draw!";
+    console.log(playerChoice)
+    console.log(compChoice)
+    if (playerChoice === compChoice) {
+        div.textContent = `Its a draw! Player score is ${playerScore}. Computer score is ${compScore}.`;
     }
     else if (playerChoice === "rock" && compChoice === "paper") {
-        compScore = compScore + 1;
-        return "You lose!";
+        compAdd();
+        div.textContent = `You lose! Player score is ${playerScore}. Computer score is ${compScore}.`;
+        compTotal();
     }
     else if (playerChoice === "rock" && compChoice === "scissor") {
-        playerScore = playerScore + 1;
-        return "You win!";
+        playerAdd();
+        div.textContent = `You win! Player score is ${playerScore}. Computer score is ${compScore}.`;
+        playerTotal();
     }
     else if (playerChoice === "paper" && compChoice === "rock") {
-        playerScore = playerScore + 1;
-        return "You win!";
+        playerAdd();
+        div.textContent = `You win! Player score is ${playerScore}. Computer score is ${compScore}.`;
+        playerTotal();
     }
     else if (playerChoice === "paper" && compChoice === "scissor") {
-        compScore = compScore + 1;
-        return "You lose!";
+        compAdd();
+        div.textContent = `You lose! Player score is ${playerScore}. Computer score is ${compScore}.`;
+        compTotal();
     }
     else if (playerChoice === "scissor" && compChoice === "rock") {
-        compScore = compScore + 1;
-        return "You lose!";
+        compAdd();
+        div.textContent = `You lose! Player score is ${playerScore}. Computer score is ${compScore}.`;
+        compTotal();
     }
     else if (playerChoice === "scissor" && compChoice === "paper") {
-        playerScore = playerScore + 1;
-        return "You win!";
+        playerAdd();
+        div.textContent = `You win! Player score is ${playerScore}. Computer score is ${compScore}.`;
+        playerTotal();
     }
     else {
-        return "Invalid";
+        div.textContent = "Invalid";
+    }
+
+}
+
+function playerAdd(){
+    playerScore = playerScore + 1;
+}
+
+function compAdd(){
+    compScore = compScore + 1;
+}
+
+function playerTotal() {
+    if (playerScore === 5) {
+        alert("Player was first to 5 points. You Won!");
+        playerScore = 0;
+        compScore = 0;
+        div.textContent = "";
     }
 }
 
-rockBtn.addEventListener("click", result);
-paperBtn.addEventListener("click", result);
-scissorBtn.addEventListener("click", result);
+function compTotal() {
+    if (compScore === 5) {
+        alert("Computer was first to 5 points. You Lost!");
+        playerScore = 0;
+        compScore = 0;
+        div.textContent = "";
+    }
+}
 
+if (playerScore > compScore) {
+    console.log(`Final score of ${playerScore}! You Win!`)
+}
+else if (playerScore < compScore) {
+    console.log(`Final score of ${playerScore}! You Lose!`)
+}
+else {
+    console.log(`Final score of ${playerScore}! You Draw!`)
+}
 
-const div = document.createElement('div');
-div.textContent = "Display results!";
-
+rockBtn.addEventListener('click', playRound);
+paperBtn.addEventListener('click', playRound);
+scissorBtn.addEventListener('click', playRound);
 
 body.appendChild(rockBtn);
 body.appendChild(paperBtn);
