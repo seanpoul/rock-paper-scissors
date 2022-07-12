@@ -1,10 +1,33 @@
 let compNum;
+let playerChoice;
 let compChoice;
 let playerScore = 0;
-let playerChoice;
 let compScore = 0;
 
-game();
+const body = document.body;
+const rockBtn = document.createElement('button');
+const paperBtn = document.createElement('button');
+const scissorBtn = document.createElement('button');
+
+rockBtn.textContent = "Rock";
+paperBtn.textContent = "Paper";
+scissorBtn.textContent = "Scissor";
+
+rockBtn.addEventListener('click', updateRock);
+paperBtn.addEventListener('click', updatePaper);
+scissorBtn.addEventListener('click', updateScissor);
+
+function updateRock() {
+    playerChoice = "rock"
+}
+
+function updatePaper() {
+    playerChoice = "paper"
+}
+
+function updateScissor() {
+    playerChoice = "scissor"
+}
 
 if (playerScore > compScore) {
     console.log(`Final score of ${playerScore}! You Win!`)
@@ -14,28 +37,6 @@ else if (playerScore < compScore) {
 }
 else {
     console.log(`Final score of ${playerScore}! You Draw!`)
-}
-
-
-function game() {
-    for (let i = 0; i < 5; i++) {
-        let choice = prompt("Choose: rock, paper or scissor");
-        playerChoice = choice.toLowerCase();
-        randomNum();
-        computerPlay();
-        let result = playRound();
-        console.log(result);
-        if (result === "You win!") {
-            playerScore = playerScore + 1;
-        }
-        else if (result === "You lose!") {
-            compScore = compScore + 1;
-        }
-        else if (result === "Invalid") {
-            i = i - 1
-        }
-    }
-
 }
 
 function randomNum() {
@@ -54,29 +55,52 @@ function computerPlay() {
     }
 }
 
-function playRound() {
-    if (playerChoice === compChoice) {
+let result = function playRound() {
+    let choice = playerChoice;
+    randomNum();
+    computerPlay();
+    if (rockBtn.textContent === compChoice) {
         return "Its a draw!";
     }
     else if (playerChoice === "rock" && compChoice === "paper") {
+        compScore = compScore + 1;
         return "You lose!";
     }
     else if (playerChoice === "rock" && compChoice === "scissor") {
+        playerScore = playerScore + 1;
         return "You win!";
     }
     else if (playerChoice === "paper" && compChoice === "rock") {
+        playerScore = playerScore + 1;
         return "You win!";
     }
     else if (playerChoice === "paper" && compChoice === "scissor") {
+        compScore = compScore + 1;
         return "You lose!";
     }
     else if (playerChoice === "scissor" && compChoice === "rock") {
+        compScore = compScore + 1;
         return "You lose!";
     }
     else if (playerChoice === "scissor" && compChoice === "paper") {
+        playerScore = playerScore + 1;
         return "You win!";
     }
     else {
         return "Invalid";
     }
 }
+
+rockBtn.addEventListener("click", result);
+paperBtn.addEventListener("click", result);
+scissorBtn.addEventListener("click", result);
+
+
+const div = document.createElement('div');
+div.textContent = "Display results!";
+
+
+body.appendChild(rockBtn);
+body.appendChild(paperBtn);
+body.appendChild(scissorBtn);
+body.appendChild(div);
