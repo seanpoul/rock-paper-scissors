@@ -99,30 +99,20 @@ function compAdd(){
 
 function playerTotal() {
     if (playerScore === 5) {
+        div.textContent = "";
         alert("Player was first to 5 points. You Won!");
         playerScore = 0;
         compScore = 0;
-        div.textContent = "";
     }
 }
 
 function compTotal() {
     if (compScore === 5) {
+        div.textContent = "";
         alert("Computer was first to 5 points. You Lost!");
         playerScore = 0;
         compScore = 0;
-        div.textContent = "";
     }
-}
-
-if (playerScore > compScore) {
-    console.log(`Final score of ${playerScore}! You Win!`)
-}
-else if (playerScore < compScore) {
-    console.log(`Final score of ${playerScore}! You Lose!`)
-}
-else {
-    console.log(`Final score of ${playerScore}! You Draw!`)
 }
 
 rockBtn.addEventListener('click', playRound);
